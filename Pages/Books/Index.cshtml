@@ -1,0 +1,80 @@
+﻿@page
+@model Cicioc_Daniela_Naomi_Lab2.Pages.Books.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Book[0].Title)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Book[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book[0].PublishingDate)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Book[0].Authors)
+               
+            </th>
+
+            
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Book) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublishingDate)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Authors)
+                    <select id="dropdownAuthors">
+                        <option value="Autor1">Cristi 	Boariu</option>
+                        <option value="Autor2">Mihai 	Eminescu</option>
+                        <option value="Autor3">Mihail	Mihail</option>
+                        <option value="Autor4">RICHARD	Richard</option>
+                    </select>
+
+                    <p>Ai selectat autorul: <span id="selectedAuthor"></span></p>
+
+                    <script>
+                        var dropdown = document.getElementById("dropdownAuthors");                      
+                        var selectedAuthor = document.getElementById("selectedAuthor");                       
+                        dropdown.addEventListener("change", function () {
+                            var selectedOption = dropdown.options[dropdown.selectedIndex];
+                            selectedAuthor.textContent = selectedOption.textContent;
+                        });
+                    </script>
+            </td>
+
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+
+       
+    </tbody>
+</table>
